@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lupita Vega — Product Designer & UX Strategist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F9F5EF;
+    --ink: #1A1410;
+    --terracotta: #C4622D;
+    --sage: #6B7E6A;
+    --warm-mid: #8C7B6E;
+    --light-border: rgba(26,20,16,0.1);
+    --card-bg: #FFFFFF;
+    --tag-bg: rgba(196,98,45,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* custom cursor */
+  * { cursor: none !important; }
+  .cursor {
+    position: fixed; width: 10px; height: 10px; background: var(--terracotta);
+    border-radius: 50%; pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%); transition: transform 0.1s;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    position: fixed; width: 36px; height: 36px;
+    border: 1px solid rgba(196,98,45,0.4); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.18s ease;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 56px;
+    background: rgba(249,245,239,0.9); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--light-border);
+  }
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600;
+    letter-spacing: 0.02em; color: var(--ink);
+  }
+  .nav-name em { font-style: italic; color: var(--terracotta); }
+  .nav-links { display: flex; gap: 40px; }
+  .nav-links a {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none; opacity: 0.5; transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--terracotta); text-decoration: none; display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--terracotta); padding-bottom: 2px;
+    transition: gap 0.2s;
+  }
+  .nav-cta:hover { gap: 14px; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding: 140px 56px 80px;
+    display: grid; grid-template-columns: 1fr 420px;
+    gap: 60px; align-items: center;
+    max-width: 1320px; margin: 0 auto;
+    position: relative;
+  }
+
+  /* Grain texture */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: 1000; pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  }
+
+  .hero-text {}
+  .hero-availability {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 36px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--sage);
+  }
+  .avail-dot {
+    width: 7px; height: 7px; background: #4CAF50; border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(76,175,80,0.2);
+    animation: breathe 2.5s ease infinite;
+  }
+  @keyframes breathe { 0%,100%{box-shadow:0 0 0 3px rgba(76,175,80,0.2)} 50%{box-shadow:0 0 0 6px rgba(76,175,80,0)} }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 5.5vw, 88px);
+    font-weight: 300; line-height: 1.0; letter-spacing: -0.5px;
+    margin-bottom: 32px;
+  }
+  h1 em { font-style: italic; color: var(--terracotta); }
+  h1 .line-indent { padding-left: 80px; display: block; }
+
+  .hero-desc {
+    font-size: 16px; color: var(--warm-mid); line-height: 1.8;
+    max-width: 500px; margin-bottom: 48px; font-weight: 300;
+  }
+
+  .hero-actions { display: flex; gap: 20px; align-items: center; }
+  .btn-primary {
+    background: var(--ink); color: var(--cream);
+    padding: 14px 32px; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--terracotta); transform: translateY(-2px); }
+  .btn-text {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--warm-mid); text-decoration: none; transition: color 0.2s;
+  }
+  .btn-text:hover { color: var(--ink); }
+
+  /* Hero aside */
+  .hero-aside { display: flex; flex-direction: column; gap: 20px; }
+  .aside-card {
+    background: var(--card-bg); border: 1px solid var(--light-border);
+    padding: 24px 28px; position: relative; overflow: hidden;
+  }
+  .aside-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--terracotta);
+  }
+  .aside-label { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm-mid); margin-bottom: 8px; }
+  .aside-value { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; line-height: 1.2; }
+  .aside-sub { font-size: 12px; color: var(--warm-mid); margin-top: 4px; }
+
+  /* Discipline list */
+  .disciplines { display: flex; flex-direction: column; gap: 0; }
+  .discipline {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0; border-bottom: 1px solid var(--light-border);
+    font-size: 14px; font-weight: 400;
+  }
+  .discipline:first-child { border-top: 1px solid var(--light-border); }
+  .discipline-num { font-size: 10px; color: var(--warm-mid); font-weight: 500; }
+  .discipline-arrow { color: var(--terracotta); opacity: 0; transition: opacity 0.2s; font-size: 12px; }
+  .discipline:hover .discipline-arrow { opacity: 1; }
+
+  /* ── SCROLL MARQUEE ── */
+  .marquee-wrap {
+    border-top: 1px solid var(--light-border);
+    border-bottom: 1px solid var(--light-border);
+    padding: 16px 0; overflow: hidden; white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex; gap: 48px;
+    animation: marquee 18s linear infinite;
+  }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .marquee-item {
+    font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic;
+    color: var(--warm-mid); display: flex; align-items: center; gap: 20px;
+  }
+  .marquee-sep { color: var(--terracotta); font-style: normal; font-size: 14px; }
+
+  /* ── WORK ── */
+  .section {
+    max-width: 1320px; margin: 0 auto; padding: 100px 56px;
+  }
+  .section-header {
+    display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px;
+    border-bottom: 1px solid var(--light-border); padding-bottom: 32px;
+  }
+  .section-number { font-size: 11px; color: var(--warm-mid); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; }
+  h2 {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 4vw, 60px);
+    font-weight: 300; letter-spacing: -0.3px; line-height: 1.05;
+  }
+  h2 em { font-style: italic; color: var(--terracotta); }
+  .section-view-all {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--terracotta); text-decoration: none; display: flex; align-items: center; gap: 8px;
+    transition: gap 0.2s;
+  }
+  .section-view-all:hover { gap: 14px; }
+
+  /* ── PROJECT CARDS ── */
+  .project-list { display: flex; flex-direction: column; gap: 2px; }
+
+  .project-row {
+    display: grid; grid-template-columns: 80px 1fr 180px 140px;
+    align-items: center; gap: 32px;
+    padding: 28px 32px; background: var(--card-bg);
+    border: 1px solid var(--light-border);
+    text-decoration: none; color: var(--ink);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    position: relative; overflow: hidden; cursor: none !important;
+  }
+  .project-row::after {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0;
+    background: var(--terracotta); transition: width 0.3s ease;
+  }
+  .project-row:hover { border-color: var(--terracotta); transform: translateX(4px); }
+  .project-row:hover::after { width: 3px; }
+
+  .pr-num { font-size: 11px; color: var(--warm-mid); font-weight: 500; letter-spacing: 0.05em; }
+  .pr-main { }
+  .pr-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; margin-bottom: 4px; line-height: 1.2; }
+  .pr-sub { font-size: 13px; color: var(--warm-mid); }
+  .pr-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pr-tag {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 4px 10px; background: var(--tag-bg); color: var(--terracotta);
+  }
+  .pr-link {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--sage); display: flex; align-items: center; gap: 6px; justify-content: flex-end;
+    transition: color 0.2s;
+  }
+  .project-row:hover .pr-link { color: var(--terracotta); }
+
+  /* ── FEATURED PROJECT CARDS (visual) ── */
+  .featured-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2px; margin-top: 2px; }
+
+  .featured-card {
+    background: var(--card-bg); border: 1px solid var(--light-border);
+    overflow: hidden; text-decoration: none; color: var(--ink);
+    transition: border-color 0.2s;
+    display: flex; flex-direction: column;
+  }
+  .featured-card:hover { border-color: var(--terracotta); }
+  .featured-card:hover .fc-thumb { transform: scale(1.03); }
+
+  .fc-visual { height: 340px; overflow: hidden; position: relative; }
+  .fc-thumb {
+    width: 100%; height: 100%; transition: transform 0.5s ease;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+
+  /* CivicData visual */
+  .vis-civic {
+    background: linear-gradient(145deg, #0A1628, #0D2B4A, #0A3D6B);
+  }
+  .vis-civic-inner {
+    width: 85%; height: 80%;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px; padding: 18px; display: flex; flex-direction: column; gap: 12px;
+    backdrop-filter: blur(2px);
+  }
+  .vcb-header { display: flex; justify-content: space-between; align-items: center; }
+  .vcb-logo { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; color: white; display: flex; align-items: center; gap: 6px; }
+  .vcb-logo-dot { width: 6px; height: 6px; background: #4fc3f7; border-radius: 50%; }
+  .vcb-status { font-size: 9px; background: rgba(76,175,80,0.2); color: #81c784; padding: 3px 8px; }
+  .vcb-map { background: rgba(79,195,247,0.06); border: 1px solid rgba(79,195,247,0.12); flex: 1; position: relative; overflow: hidden; }
+  .vcb-map-grid {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(0deg, rgba(79,195,247,0.04) 0, rgba(79,195,247,0.04) 1px, transparent 1px, transparent 28px),
+                      repeating-linear-gradient(90deg, rgba(79,195,247,0.04) 0, rgba(79,195,247,0.04) 1px, transparent 1px, transparent 28px);
+  }
+  .vcb-dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #4fc3f7; box-shadow: 0 0 12px rgba(79,195,247,0.6); }
+  .vcb-dot.d2 { background: #ef5350; box-shadow: 0 0 12px rgba(239,83,80,0.6); }
+  .vcb-dot.d3 { background: #66bb6a; box-shadow: 0 0 12px rgba(102,187,106,0.6); }
+  .vcb-stats { display: flex; gap: 8px; }
+  .vcb-stat { background: rgba(255,255,255,0.04); flex: 1; padding: 8px; text-align: center; }
+  .vcb-stat-n { font-size: 14px; font-weight: 700; color: #4fc3f7; }
+  .vcb-stat-l { font-size: 8px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* fibrX visual */
+  .vis-fibrx {
+    background: linear-gradient(145deg, #0B0B0B, #111827, #1a1a2e);
+  }
+  .vis-fibrx-inner {
+    width: 85%; height: 80%; display: flex; gap: 10px;
+  }
+  .vfx-side { width: 44px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 16px; }
+  .vfx-icon { width: 24px; height: 24px; background: rgba(255,255,255,0.05); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+  .vfx-icon.active { background: rgba(255,107,26,0.2); border: 1px solid rgba(255,107,26,0.3); }
+  .vfx-main { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .vfx-header { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; }
+  .vfx-logo { font-size: 11px; font-weight: 700; color: white; }
+  .vfx-alert { font-size: 9px; background: rgba(255,107,26,0.2); color: #ff8c47; padding: 2px 8px; }
+  .vfx-body { flex: 1; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 10px; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; }
+  .vfx-3d-hint { position: absolute; inset: 0; background: linear-gradient(135deg, transparent 40%, rgba(255,107,26,0.04)); }
+  .vfx-line { height: 1px; background: rgba(255,107,26,0.2); position: relative; }
+  .vfx-line::after { content: ''; position: absolute; left: 30%; top: -3px; width: 8px; height: 8px; background: #ff6b1a; border-radius: 50%; box-shadow: 0 0 8px rgba(255,107,26,0.8); }
+  .vfx-line.safe::after { background: #4caf50; box-shadow: 0 0 8px rgba(76,175,80,0.8); left: 65%; }
+  .vfx-metrics { display: flex; gap: 6px; margin-top: auto; }
+  .vfx-metric { flex: 1; background: rgba(255,255,255,0.03); padding: 6px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+  .vfx-mn { font-size: 13px; font-weight: 700; color: #ff8c47; }
+  .vfx-ml { font-size: 7px; color: rgba(255,255,255,0.3); text-transform: uppercase; }
+
+  /* on-demand services visual */
+  .vis-ondemand {
+    background: linear-gradient(145deg, #0F1923, #1A2744, #0D1B36);
+  }
+
+  /* Max Impact visual */
+  .vis-maximpact {
+    background: linear-gradient(145deg, #1A0A2E, #2D1A5C, #1A0A2E);
+  }
+  .vmi-inner {
+    width: 85%; height: 80%; background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08); padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .vmi-topbar { display: flex; justify-content: space-between; align-items: center; }
+  .vmi-logo { font-size: 10px; font-weight: 700; color: white; letter-spacing: 0.05em; text-transform: uppercase; }
+  .vmi-progress { display: flex; align-items: center; gap: 6px; font-size: 9px; color: rgba(255,255,255,0.5); }
+  .vmi-prog-bar { width: 60px; height: 3px; background: rgba(255,255,255,0.1); }
+  .vmi-prog-fill { height: 100%; width: 65%; background: #a78bfa; }
+  .vmi-hero { background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.15); flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+  .vmi-hero-title { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: white; text-align: center; line-height: 1.3; }
+  .vmi-hero-btn { background: #7c3aed; color: white; font-size: 8px; font-weight: 700; padding: 5px 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .vmi-modules { display: flex; gap: 6px; }
+  .vmi-module { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); padding: 6px 8px; }
+  .vmi-mod-title { font-size: 8px; color: rgba(255,255,255,0.6); }
+  .vmi-mod-bar { height: 2px; background: rgba(255,255,255,0.08); margin-top: 4px; }
+  .vmi-mod-fill { height: 100%; background: #a78bfa; }
+
+  /* on-demand mockup for the fibrX prototype */
+  .vis-fibrx-app {
+    background: linear-gradient(145deg, #04111F, #071C33, #03101E);
+  }
+  .vfa-inner { width: 50%; }
+  .vfa-phone {
+    width: 130px; height: 260px; background: #060d18; border-radius: 24px;
+    border: 2px solid rgba(255,255,255,0.1); overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5), 20px 20px 60px rgba(10,75,171,0.2);
+  }
+  .vfa-screen { background: linear-gradient(180deg, #061832, #020c1a); height: 100%; padding: 12px 10px; display: flex; flex-direction: column; gap: 7px; }
+  .vfa-bar { background: rgba(255,255,255,0.08); border-radius: 4px; height: 18px; }
+  .vfa-card { background: rgba(10,75,171,0.25); border: 1px solid rgba(27,127,232,0.2); border-radius: 8px; padding: 8px; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .vfa-alert { background: rgba(255,107,26,0.2); border-radius: 4px; height: 16px; }
+  .vfa-data { display: flex; gap: 4px; }
+  .vfa-datum { flex: 1; background: rgba(255,255,255,0.05); border-radius: 4px; height: 28px; }
+  .vfa-lines { display: flex; flex-direction: column; gap: 3px; }
+  .vfa-line2 { background: rgba(255,255,255,0.05); border-radius: 3px; height: 10px; }
+  .vfa-btn-app { background: #1B7FE8; border-radius: 6px; height: 22px; }
+
+  .fc-info { padding: 24px 28px 28px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .fc-cat { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm-mid); }
+  .fc-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; line-height: 1.2; }
+  .fc-desc { font-size: 13px; color: var(--warm-mid); line-height: 1.65; flex: 1; }
+  .fc-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+  .fc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .fc-tag { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; background: var(--tag-bg); color: var(--terracotta); }
+  .fc-view { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s, gap 0.2s; }
+  .fc-view:hover { color: var(--terracotta); gap: 12px; }
+
+  /* ── ABOUT ── */
+  .about-section {
+    background: var(--ink);
+    padding: 100px 0;
+  }
+  .about-inner {
+    max-width: 1320px; margin: 0 auto; padding: 0 56px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .about-text-side { }
+  .about-eyebrow { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 24px; }
+  .about-h2 {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 4vw, 58px);
+    font-weight: 300; line-height: 1.1; color: var(--cream); margin-bottom: 32px;
+  }
+  .about-h2 em { font-style: italic; color: var(--terracotta); }
+  .about-body { font-size: 15px; color: rgba(249,245,239,0.5); line-height: 1.85; margin-bottom: 16px; }
+
+  .about-skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
+  .about-skill {
+    padding: 16px 20px; border: 1px solid rgba(249,245,239,0.08);
+    font-size: 13px; color: rgba(249,245,239,0.7);
+    display: flex; align-items: center; gap: 10px; transition: border-color 0.2s;
+  }
+  .about-skill:hover { border-color: var(--terracotta); }
+  .about-skill::before { content: '→'; color: var(--terracotta); font-size: 11px; }
+
+  .about-visual-side { }
+  .about-quote {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 3vw, 46px);
+    font-style: italic; font-weight: 300; color: rgba(249,245,239,0.15); line-height: 1.3;
+    margin-bottom: 40px;
+  }
+  .about-quote span { color: rgba(249,245,239,0.9); }
+
+  .about-numbers { display: flex; flex-direction: column; gap: 24px; }
+  .about-number { border-top: 1px solid rgba(249,245,239,0.08); padding-top: 24px; }
+  .ab-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300;
+    color: var(--cream); line-height: 1; letter-spacing: -2px;
+  }
+  .ab-label { font-size: 12px; color: rgba(249,245,239,0.4); margin-top: 4px; letter-spacing: 0.05em; }
+
+  /* ── SERVICES ── */
+  .services-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 2px; }
+  .service-tile {
+    padding: 40px 36px; border: 1px solid var(--light-border); background: var(--card-bg);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .service-tile:hover { border-color: var(--terracotta); transform: translateY(-4px); }
+  .st-num { font-size: 11px; color: var(--terracotta); font-weight: 600; letter-spacing: 0.1em; margin-bottom: 24px; }
+  .st-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; margin-bottom: 12px; line-height: 1.2; }
+  .st-desc { font-size: 13px; color: var(--warm-mid); line-height: 1.7; }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 120px 56px;
+    text-align: center;
+    max-width: 1320px; margin: 0 auto;
+  }
+  .cta-tag { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm-mid); margin-bottom: 24px; }
+  .cta-h2 {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 5vw, 76px);
+    font-weight: 300; line-height: 1.05; margin-bottom: 40px;
+  }
+  .cta-h2 em { font-style: italic; color: var(--terracotta); }
+  .cta-email {
+    display: inline-flex; align-items: center; gap: 16px;
+    background: var(--ink); color: var(--cream);
+    padding: 18px 40px; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s, gap 0.2s, transform 0.2s;
+  }
+  .cta-email:hover { background: var(--terracotta); gap: 22px; transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--light-border);
+    padding: 36px 56px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-left { font-size: 13px; color: var(--warm-mid); }
+  .footer-left strong { color: var(--ink); font-weight: 600; }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-links a { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--warm-mid); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--terracotta); }
+
+  /* Animations */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    animation: reveal 0.8s ease forwards;
+  }
+  .reveal:nth-child(1) { animation-delay: 0.1s; }
+  .reveal:nth-child(2) { animation-delay: 0.25s; }
+  .reveal:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 960px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 110px 24px 60px; gap: 40px; }
+    .hero-aside { display: none; }
+    .section { padding: 70px 24px; }
+    .project-row { grid-template-columns: 1fr; gap: 12px; }
+    .pr-num, .pr-link { display: none; }
+    .featured-grid { grid-template-columns: 1fr; }
+    .about-inner { grid-template-columns: 1fr; padding: 0 24px; }
+    .services-row { grid-template-columns: 1fr; }
+    .cta-section { padding: 80px 24px; }
+    footer { flex-direction: column; gap: 20px; padding: 32px 24px; text-align: center; }
+    * { cursor: auto !important; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-name">Lupita <em>Vega</em></div>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+  </div>
+  <a href="mailto:lupita@email.com" class="nav-cta">Say Hello →</a>
+</nav>
+
+<!-- HERO -->
+<section>
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-availability reveal">
+        <div class="avail-dot"></div>
+        Available for new projects
+      </div>
+      <h1 class="reveal">
+        Designing <em>clarity</em>
+        <span class="line-indent">from complexity.</span>
+      </h1>
+      <p class="hero-desc reveal">
+        I'm Lupita — a product designer and UX strategist who turns ambitious ideas into intuitive digital experiences. From AI civic platforms to deep-tech infrastructure, I design products that perform.
+      </p>
+      <div class="hero-actions reveal">
+        <a href="#work" class="btn-primary">View My Work</a>
+        <a href="#about" class="btn-text">Learn more →</a>
+      </div>
+    </div>
+
+    <div class="hero-aside">
+      <div class="aside-card">
+        <div class="aside-label">Currently based in</div>
+        <div class="aside-value">Utah, USA</div>
+        <div class="aside-sub">Open to remote & on-site</div>
+      </div>
+      <div class="aside-card">
+        <div class="aside-label">Focused on</div>
+        <div class="aside-value">Product Design<br>UX Strategy</div>
+      </div>
+      <div>
+        <div class="disciplines">
+          <div class="discipline">
+            <span>UI / UX Design</span>
+            <span class="discipline-num">01</span>
+            <span class="discipline-arrow">→</span>
+          </div>
+          <div class="discipline">
+            <span>Mobile App Design</span>
+            <span class="discipline-num">02</span>
+            <span class="discipline-arrow">→</span>
+          </div>
+          <div class="discipline">
+            <span>Design Systems</span>
+            <span class="discipline-num">03</span>
+            <span class="discipline-arrow">→</span>
+          </div>
+          <div class="discipline">
+            <span>Prototyping & Testing</span>
+            <span class="discipline-num">04</span>
+            <span class="discipline-arrow">→</span>
+          </div>
+          <div class="discipline">
+            <span>Brand & Visual Identity</span>
+            <span class="discipline-num">05</span>
+            <span class="discipline-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">UI / UX Design <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Figma Prototyping <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Civic Tech <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Mobile App Design <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">SaaS Platforms <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Design Systems <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Deep Tech UX <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">E-Commerce <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">UI / UX Design <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Figma Prototyping <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Civic Tech <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Mobile App Design <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">SaaS Platforms <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Design Systems <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Deep Tech UX <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">E-Commerce <span class="marquee-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section class="section" id="work">
+  <div class="section-header">
+    <div>
+      <div class="section-number">01 — Selected Work</div>
+      <h2>Real projects,<br><em>real impact.</em></h2>
+    </div>
+    <a href="mailto:lupita@email.com" class="section-view-all">Get in touch →</a>
+  </div>
+
+  <!-- List rows -->
+  <div class="project-list">
+    <a href="https://civicdata.ai" target="_blank" class="project-row">
+      <div class="pr-num">01</div>
+      <div class="pr-main">
+        <div class="pr-title">CivicData.ai</div>
+        <div class="pr-sub">AI-powered population analytics SaaS platform for city governments</div>
+      </div>
+      <div class="pr-tags">
+        <span class="pr-tag">SaaS</span>
+        <span class="pr-tag">AI Platform</span>
+        <span class="pr-tag">Civic Tech</span>
+      </div>
+      <div class="pr-link">View Live Site →</div>
+    </a>
+
+    <a href="https://www.fibrx.io" target="_blank" class="project-row">
+      <div class="pr-num">02</div>
+      <div class="pr-main">
+        <div class="pr-title">fibrX.io</div>
+        <div class="pr-sub">Deep-tech startup — real-time infrastructure monitoring backed by the U.S. Navy</div>
+      </div>
+      <div class="pr-tags">
+        <span class="pr-tag">Deep Tech</span>
+        <span class="pr-tag">Defense</span>
+        <span class="pr-tag">Web Design</span>
+      </div>
+      <div class="pr-link">View Live Site →</div>
+    </a>
+
+    <a href="https://www.figma.com/proto/2BFkRpckI3DxFJJL1BkmDj/Poly-Platform--Lupita?page-id=258%3A1968&node-id=568-709&p=f&viewport=-1113%2C-142%2C0.07&t=7Mm9VKCOxk5ukJYx-1&scaling=scale-down&content-scaling=fixed" target="_blank" class="project-row">
+      <div class="pr-num">03</div>
+      <div class="pr-main">
+        <div class="pr-title">fibrX Mobile App</div>
+        <div class="pr-sub">Full Figma prototype — mobile companion app for real-time sensor monitoring</div>
+      </div>
+      <div class="pr-tags">
+        <span class="pr-tag">Mobile UX</span>
+        <span class="pr-tag">Figma</span>
+        <span class="pr-tag">Prototype</span>
+      </div>
+      <div class="pr-link">View Prototype →</div>
+    </a>
+
+    <a href="https://www.figma.com/proto/6kJQCMLvFD0fVsZSqEeWTN/Lupita-Vega-Max-Impact-Concil?page-id=0%3A1&node-id=397-3669&viewport=7%2C-2%2C0.02&t=7Mm9VKCOxk5ukJYx-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=397%3A3669&show-proto-sidebar=1" target="_blank" class="project-row">
+      <div class="pr-num">04</div>
+      <div class="pr-main">
+        <div class="pr-title">Max Impact Council of Utah</div>
+        <div class="pr-sub">Course platform UI — Figma prototype for community education and leadership programming</div>
+      </div>
+      <div class="pr-tags">
+        <span class="pr-tag">Ed Tech</span>
+        <span class="pr-tag">Figma</span>
+        <span class="pr-tag">Course UI</span>
+      </div>
+      <div class="pr-link">View Prototype →</div>
+    </a>
+  </div>
+
+  <!-- Featured visual cards -->
+  <div class="featured-grid">
+
+    <!-- CivicData -->
+    <a href="https://civicdata.ai" target="_blank" class="featured-card">
+      <div class="fc-visual">
+        <div class="fc-thumb vis-civic">
+          <div class="vis-civic-inner">
+            <div class="vcb-header">
+              <div class="vcb-logo"><div class="vcb-logo-dot"></div>CivicData.ai</div>
+              <div class="vcb-status">● Live</div>
+            </div>
+            <div class="vcb-map">
+              <div class="vcb-map-grid"></div>
+              <div class="vcb-dot" style="top:35%;left:40%"></div>
+              <div class="vcb-dot d2" style="top:55%;left:65%"></div>
+              <div class="vcb-dot d3" style="top:25%;left:70%"></div>
+              <div class="vcb-dot" style="top:65%;left:25%"></div>
+              <div class="vcb-dot d2" style="top:45%;left:55%"></div>
+            </div>
+            <div class="vcb-stats">
+              <div class="vcb-stat"><div class="vcb-stat-n">2.4M</div><div class="vcb-stat-l">Population</div></div>
+              <div class="vcb-stat"><div class="vcb-stat-n">94%</div><div class="vcb-stat-l">Accuracy</div></div>
+              <div class="vcb-stat"><div class="vcb-stat-n">47</div><div class="vcb-stat-l">Cities</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-info">
+        <div class="fc-cat">SaaS · AI Platform · Civic Technology</div>
+        <div class="fc-title">CivicData.ai — Real-Time Population Intelligence</div>
+        <div class="fc-desc">Designed the UX for an AI-powered SaaS platform that helps city governments replace outdated census data with real-time population projections. Features dashboard design, data visualization, and onboarding flows for municipal decision-makers.</div>
+        <div class="fc-footer">
+          <div class="fc-tags">
+            <span class="fc-tag">Figma</span>
+            <span class="fc-tag">SaaS Design</span>
+            <span class="fc-tag">Data Viz</span>
+          </div>
+          <span class="fc-view">View Live →</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- fibrX -->
+    <a href="https://www.fibrx.io" target="_blank" class="featured-card">
+      <div class="fc-visual">
+        <div class="fc-thumb vis-fibrx">
+          <div class="vis-fibrx-inner">
+            <div class="vfx-side">
+              <div class="vfx-icon active">⚠</div>
+              <div class="vfx-icon">📊</div>
+              <div class="vfx-icon">🛡</div>
+              <div class="vfx-icon">⚙</div>
+            </div>
+            <div class="vfx-main">
+              <div class="vfx-header">
+                <div class="vfx-logo">fibrX</div>
+                <div class="vfx-alert">ALERT: Sector 3</div>
+              </div>
+              <div class="vfx-body">
+                <div class="vfx-3d-hint"></div>
+                <div class="vfx-line"></div>
+                <div style="height:12px"></div>
+                <div class="vfx-line safe"></div>
+                <div style="height:18px"></div>
+                <div class="vfx-line"></div>
+                <div class="vfx-metrics">
+                  <div class="vfx-metric"><div class="vfx-mn">98°C</div><div class="vfx-ml">Temp</div></div>
+                  <div class="vfx-metric"><div class="vfx-mn">4.2%</div><div class="vfx-ml">Corrosion</div></div>
+                  <div class="vfx-metric"><div class="vfx-mn">30s</div><div class="vfx-ml">Update</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-info">
+        <div class="fc-cat">Deep Tech · Defense · Web Platform</div>
+        <div class="fc-title">fibrX — Infrastructure Monitoring Platform</div>
+        <div class="fc-desc">Web design and UX for a deep-tech startup using fiber optic sensors and AI to detect corrosion in real time. Backed by the U.S. Navy. Designed for high-stakes industries including aerospace, defense, and offshore energy.</div>
+        <div class="fc-footer">
+          <div class="fc-tags">
+            <span class="fc-tag">Web Design</span>
+            <span class="fc-tag">B2B SaaS</span>
+            <span class="fc-tag">Deep Tech</span>
+          </div>
+          <span class="fc-view">View Live →</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- fibrX mobile -->
+    <a href="https://www.figma.com/proto/2BFkRpckI3DxFJJL1BkmDj/Poly-Platform--Lupita?page-id=258%3A1968&node-id=568-709&p=f&viewport=-1113%2C-142%2C0.07&t=7Mm9VKCOxk5ukJYx-1&scaling=scale-down&content-scaling=fixed" target="_blank" class="featured-card">
+      <div class="fc-visual">
+        <div class="fc-thumb vis-fibrx-app" style="justify-content:center">
+          <div class="vfa-phone">
+            <div class="vfa-screen">
+              <div class="vfa-bar"></div>
+              <div class="vfa-card">
+                <div class="vfa-alert"></div>
+                <div class="vfa-data">
+                  <div class="vfa-datum"></div>
+                  <div class="vfa-datum"></div>
+                  <div class="vfa-datum"></div>
+                </div>
+                <div class="vfa-lines">
+                  <div class="vfa-line2"></div>
+                  <div class="vfa-line2" style="width:75%"></div>
+                </div>
+              </div>
+              <div class="vfa-btn-app"></div>
+              <div class="vfa-data">
+                <div class="vfa-datum"></div>
+                <div class="vfa-datum"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-info">
+        <div class="fc-cat">Mobile App · Figma · UX Design</div>
+        <div class="fc-title">fibrX Mobile App Prototype</div>
+        <div class="fc-desc">Full mobile UX prototype designed in Figma for the fibrX monitoring platform. Enables field engineers to track sensor alerts, view real-time structural health data, and respond to anomalies from any device.</div>
+        <div class="fc-footer">
+          <div class="fc-tags">
+            <span class="fc-tag">Mobile UX</span>
+            <span class="fc-tag">Figma</span>
+            <span class="fc-tag">Prototype</span>
+          </div>
+          <span class="fc-view">View Prototype →</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Max Impact -->
+    <a href="https://www.figma.com/proto/6kJQCMLvFD0fVsZSqEeWTN/Lupita-Vega-Max-Impact-Concil?page-id=0%3A1&node-id=397-3669&viewport=7%2C-2%2C0.02&t=7Mm9VKCOxk5ukJYx-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=397%3A3669&show-proto-sidebar=1" target="_blank" class="featured-card">
+      <div class="fc-visual">
+        <div class="fc-thumb vis-maximpact">
+          <div class="vmi-inner">
+            <div class="vmi-topbar">
+              <div class="vmi-logo">Max Impact Council</div>
+              <div class="vmi-progress">
+                <span>Progress</span>
+                <div class="vmi-prog-bar"><div class="vmi-prog-fill"></div></div>
+                <span>65%</span>
+              </div>
+            </div>
+            <div class="vmi-hero">
+              <div class="vmi-hero-title">Leadership &<br>Community Impact</div>
+              <div class="vmi-hero-btn">Continue Course</div>
+            </div>
+            <div class="vmi-modules">
+              <div class="vmi-module">
+                <div class="vmi-mod-title">Module 1</div>
+                <div class="vmi-mod-bar"><div class="vmi-mod-fill" style="width:100%"></div></div>
+              </div>
+              <div class="vmi-module">
+                <div class="vmi-mod-title">Module 2</div>
+                <div class="vmi-mod-bar"><div class="vmi-mod-fill" style="width:60%"></div></div>
+              </div>
+              <div class="vmi-module">
+                <div class="vmi-mod-title">Module 3</div>
+                <div class="vmi-mod-bar"><div class="vmi-mod-fill" style="width:0%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-info">
+        <div class="fc-cat">Ed Tech · Course Platform · Utah</div>
+        <div class="fc-title">Max Impact Council — Course Platform UI</div>
+        <div class="fc-desc">Designed a community course platform prototype for Max Impact Council of Utah, an organization focused on leadership and civic engagement. Includes course navigation, module progress tracking, and a clean, accessible learning interface.</div>
+        <div class="fc-footer">
+          <div class="fc-tags">
+            <span class="fc-tag">Ed Tech</span>
+            <span class="fc-tag">Figma</span>
+            <span class="fc-tag">Non-Profit</span>
+          </div>
+          <span class="fc-view">View Prototype →</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-text-side">
+      <div class="about-eyebrow">02 — About Lupita</div>
+      <h2 class="about-h2">I design where <em>clarity</em> meets complexity.</h2>
+      <p class="about-body">I'm a product designer who thrives in challenging problem spaces — civic AI, deep-tech infrastructure, education platforms. I believe the hardest products to understand deserve the clearest design.</p>
+      <p class="about-body">My work spans full web platforms, mobile app UX, and Figma prototypes. I collaborate closely with founders and teams to bring ambitious digital products to life — from early concept to clickable prototype to live product.</p>
+      <div class="about-skills-grid">
+        <div class="about-skill">Figma & Prototyping</div>
+        <div class="about-skill">Mobile App UX</div>
+        <div class="about-skill">SaaS Design</div>
+        <div class="about-skill">Design Systems</div>
+        <div class="about-skill">User Research</div>
+        <div class="about-skill">Brand Identity</div>
+        <div class="about-skill">Web Design</div>
+        <div class="about-skill">E-Commerce UX</div>
+      </div>
+    </div>
+    <div class="about-visual-side">
+      <div class="about-quote">"Design is how you make <span>complexity feel simple.</span>"</div>
+      <div class="about-numbers">
+        <div class="about-number">
+          <div class="ab-num">4</div>
+          <div class="ab-label">Live products designed</div>
+        </div>
+        <div class="about-number">
+          <div class="ab-num">3</div>
+          <div class="ab-label">Industries — Civic, Deep Tech, Ed Tech</div>
+        </div>
+        <div class="about-number">
+          <div class="ab-num">100%</div>
+          <div class="ab-label">Remote-ready & collaborative</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-header">
+    <div>
+      <div class="section-number">03 — What I Offer</div>
+      <h2>Services for builders<br>with <em>big visions.</em></h2>
+    </div>
+  </div>
+  <div class="services-row">
+    <div class="service-tile">
+      <div class="st-num">01</div>
+      <div class="st-title">Product & UX Design</div>
+      <div class="st-desc">End-to-end UX design for web platforms and mobile apps — from research and wireframes to polished, interactive Figma prototypes.</div>
+    </div>
+    <div class="service-tile">
+      <div class="st-num">02</div>
+      <div class="st-title">Platform Redesigns</div>
+      <div class="st-desc">Modernizing existing digital products with better UX, updated visual design, and design systems that scale with your team.</div>
+    </div>
+    <div class="service-tile">
+      <div class="st-num">03</div>
+      <div class="st-title">Figma Prototypes</div>
+      <div class="st-desc">High-fidelity, clickable Figma prototypes for investor demos, user testing, and developer handoff — built fast and built right.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-tag">04 — Let's Work Together</div>
+  <h2 class="cta-h2">Have a project?<br><em>Let's build it.</em></h2>
+  <a href="mailto:lupita@email.com" class="cta-email">Get in Touch →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© 2026 <strong>Lupita Vega</strong>. Designed with intention.</div>
+  <div class="footer-links">
+    <a href="https://lupitavega.notion.site/Hi-I-m-Lupita-c1d469ca65b14225afda7a1d698487b3" target="_blank">Notion</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    <a href="mailto:lupita@email.com">Email</a>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '54px'; ring.style.height = '54px';
+      ring.style.borderColor = 'rgba(196,98,45,0.7)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '36px'; ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(196,98,45,0.4)';
+    });
+  });
+</script>
+</body>
+</html>
